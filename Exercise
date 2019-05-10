@@ -1,0 +1,63 @@
+"""
+File: randomizer.py
+Name: Aleena Siddiqui
+Description: A 'Guess the Number' Game with a high scores list. 
+"""
+
+print("""Note: This program was made to test the high scores list. If you
+want to play the game and make the high score list than just input the number
+indicated above the answer to get a point.\n""")
+
+import random
+
+a = random.randint(1,3) #generates a random number
+print(a)
+b = int(input("Enter a number between 1 - 3: ")) #asks the user to input a number
+i = 0
+
+while a == b: #compares the generated and input number
+    print("You got a point!")
+    i += 1
+    print("Score: " + str(i) + "\n") #awards a point for a right guess
+    a = random.randint(1,3)
+    print(a)
+    b = int(input("Enter a number between 1 - 3: "))
+else:
+    print("Game over.") #Game ends when the two numbers are different 
+    print("Score: " + str(i) + "\n")
+
+
+f = open("random.txt", "a")
+f.write(str(i) + "\n") #appends the score to the txt file 
+f.write("0\n" + "1\n" + "2\n" + "3\n" + "4\n" + "5\n" + "6\n" + "7\n" + "8\n" + "9\n" ) #already generated numbers for high score since the point of this is to test the high score function 
+f.close()
+
+
+f = open("random.txt", "r") #a read file is opened to avoid overwriting 
+score = [] #makes a list for high scores 
+for line in f: #goes through all the scores in the txt file
+    line = line.strip() #takes the /n out 
+    if not int(line) in score: #if the score is not already in the list, add it
+        score.append(int(line))
+
+score.sort(reverse=True) #sorts the list and makes it highest to lowest 
+
+f.close()
+    
+y = input("Would you like to see the high scores?(yes/no): ") #asks to see the high scores
+
+score = score[0:10] #makes the highscores list only 1 - 10
+rank = 1 #Establishes a rank 
+
+if y == "yes": #the user has to agree to see the highscore list
+    for x in score: #for every score in list
+        if x == i: #if a number on the list is the same as the user's score
+            print(str(rank) + ": " + str(x) + " <-- That's you!") #show the user their position on the list
+            rank += 1 #add one to rank
+        else: 
+            print(str(rank) + ": " + str(x)) #print the rank and the score
+            rank += 1 #add one to rank 
+        
+          
+
+
